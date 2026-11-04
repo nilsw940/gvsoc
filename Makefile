@@ -184,6 +184,20 @@ dramsys_preparation: build-systemc build-dramsys build-configs
 clean_dramsys_preparation:
 	rm -rf third_party
 
+clean_dramsys:
+	rm -rf third_party/DRAMSys
+
+new_dramsys:
+	@if [ ! -d "third_party/DRAMSys" ]; then \
+		git clone https://github.com/tukl-msd/DRAMSys.git third_party/DRAMSys; \
+		cd third_party/DRAMSys && git checkout c6406c5c8b0580f7db1eb9e0ca90708b72298c28; \
+	fi
+	cd third_party/DRAMSys && \
+	$(CMAKE) -S . -B build -DDRAMSYS_INSTALL=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON && \
+	$(CMAKE) --build build -j5 && \
+	$(CMAKE) --install build --prefix ./ext
+
+
 ######################################################################
 ## 				Snitch cluster testsuite			 				##
 ######################################################################
