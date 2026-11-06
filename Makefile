@@ -194,7 +194,7 @@ new_dramsys:
 	fi
 	cd third_party/DRAMSys && \
 	$(CMAKE) -S . -B build -DDRAMSYS_INSTALL=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON && \
-	$(CMAKE) --build build -j5 && \
+	$(CMAKE) --build build $(CMAKE_FLAGS) && \
 	$(CMAKE) --install build --prefix ./ext && \
 	ar d ./ext/lib/libsystemc.a sc_main.cpp.o
 
