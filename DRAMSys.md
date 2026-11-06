@@ -81,3 +81,29 @@ There are a lot of on-developing GVSoC branchs for different extensions. To enba
 - Try to run `make dramsys_apply_patch`
 	- if you encounter any errors, please try modify `core` & `pulp` submodules accroding to `add_dramsyslib_patches/gvsoc_core.patch` and `add_dramsyslib_patches/gvsoc_pulp.patch`, and generate new patches replacing the old one in `add_dramsyslib_patches`
 - After all setps above, you can run `source dramsys_pushbutton_ETHenv.sh` or `source dramsys_pushbutton.sh` to build, run, and test the dramsys-integrated GVSoC on your branch.
+
+### Static Library Version
+Set the enivronment variables:
+
+~~~~~shell
+source sourceme_newdramsys.sh
+~~~~~
+
+Build DRAMSys:
+
+~~~~~shell
+make new_dramsys
+~~~~~
+
+- You can now build GVSoC for the `pulp-open-ddr` target and use `version = 3` of the `Dramsys(st.Component)` in your configuration.
+- GVSoC will automatically pick up the SystemC library pulled by DRAMSys to avoid compatibility issues.
+- DRAMSys configurations are located in `third_party/DRAMSys/configs`
+
+#### Updating DRAMSys:
+
+~~~~~shell
+make clean_dramsys
+~~~~~
+- Clean the old installation
+- Adjust the commit checkout in the `Makefile`
+- Rebuild DRAMSys and GVSoC
